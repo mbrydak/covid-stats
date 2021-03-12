@@ -15,12 +15,13 @@ auth = tweepy.OAuthHandler(
 auth.set_access_token(tweepy_access_token, tweepy_access_token_secret)
 api = tweepy.API(auth)
 
+scan_range = int(input('How many tweets do you want to scan? '))
 #  Get deaths from twitter
 
 
 def get_deaths():
     death_dict = {}
-    for tweet in tweepy.Cursor(api.user_timeline, id='MZ_GOV_PL').items(400):
+    for tweet in tweepy.Cursor(api.user_timeline, id='MZ_GOV_PL').items(scan_range):
         content = tweet.text
         posted_at = str(tweet.created_at)
         date_formatted = posted_at.split(' ', 1)[0]
@@ -35,7 +36,7 @@ def get_deaths():
 
 def get_infections():
     formatted_infection_numbers_dict = {}
-    for tweet in tweepy.Cursor(api.user_timeline, id='MZ_GOV_PL').items(400):
+    for tweet in tweepy.Cursor(api.user_timeline, id='MZ_GOV_PL').items(scan_range):
         content = tweet.text
         posted_at = str(tweet.created_at)
         date_formatted = posted_at.split(' ', 1)[0]
