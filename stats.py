@@ -4,7 +4,10 @@
 import config
 import tweepy
 import re
+import argparse
 
+
+# Enviromental variables and flags
 tweepy_consumer_key = config.TWEEPY_CONSUMER_KEY
 tweepy_consumer_secret = config.TWEEPY_CONSUMER_SECRET
 tweepy_access_token_secret = config.TWEEPY_ACCESS_TOKEN_SECRET
@@ -15,7 +18,26 @@ auth = tweepy.OAuthHandler(
 auth.set_access_token(tweepy_access_token, tweepy_access_token_secret)
 api = tweepy.API(auth)
 
-scan_range = int(input('How many tweets do you want to scan? '))
+
+# Define flags
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--numbers-only", help="Print only numbers of deaths and infections, ommiting date")
+parser.add_argument("--range", type=int, help="Set range for tweet scanning")
+
+args = parser.parse_args()
+
+
+scan_range = 0
+
+if args.range:
+    scan_range = args.range
+else:
+    scan_range = int(input('How many tweets do you want to scan? '))
+
+    # let user define scan range
+
+
 #  Get deaths from twitter
 
 
