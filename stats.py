@@ -51,9 +51,11 @@ def get_infections():
 def print_results():
     deaths = get_deaths()
     infections = get_infections()
-    for k_d, v_d in deaths.items():
+    print("Deaths:")
+    for k_d, v_d in reversed(deaths.items()):
         print(k_d, ' ', v_d, ' deaths')
-    for k_i, v_i in infections.items():
+    print("Infections:")
+    for k_i, v_i in reversed(infections.items()):
         print(k_i, ' ', v_i, ' infections')
 
 
