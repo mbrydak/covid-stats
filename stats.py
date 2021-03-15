@@ -22,7 +22,7 @@ api = tweepy.API(auth)
 # Define flags
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "--numbers-only", help="Print only numbers of deaths and infections, ommiting date")
+    "--numbers-only", help="Print only numbers of deaths and infections, ommiting date", action="store_true")
 parser.add_argument("--range", type=int, help="Set range for tweet scanning")
 
 args = parser.parse_args()
@@ -34,9 +34,6 @@ if args.range:
     scan_range = args.range
 else:
     scan_range = int(input('How many tweets do you want to scan? '))
-
-    # let user define scan range
-
 
 #  Get deaths from twitter
 
@@ -81,4 +78,18 @@ def print_results():
         print(k_i, ' ', v_i, ' infections')
 
 
-print_results()
+def print_results_numbers():
+    deaths = get_deaths()
+    infections = get_infections()
+    print("Deaths:")
+    for k_d, v_d in reversed(deaths.items()):
+        print(v_d)
+    print("Infections:")
+    for k_i, v_i in reversed(infections.items()):
+        print(v_i)
+
+
+if args.numbers_only:
+    print_results_numbers()
+else:
+    print_results()
